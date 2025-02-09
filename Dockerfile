@@ -13,7 +13,6 @@ RUN npm ci --no-audit --no-fund --loglevel=error
 FROM base AS builder
 
 ENV NEXT_PUBLIC_APP_ENV $APP_ENV
-ENV NODE_ENV production
 
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
@@ -21,6 +20,7 @@ COPY . .
 
 # Need Typescript and ESLint installed during build to validate types
 RUN npm install typescript eslint sharp
+ENV NODE_ENV production
 
 RUN npm run build
 
